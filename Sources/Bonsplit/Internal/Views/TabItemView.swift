@@ -118,6 +118,13 @@ struct TabItemView: View {
                 }
                 .onChange(of: tab.icon) { _ in updateGlobeFallback() }
 
+                if let badge = tab.badge {
+                    Text(badge)
+                        .font(.system(size: TabBarMetrics.titleFontSize - 1, weight: .semibold, design: .monospaced))
+                        .foregroundStyle(Color.secondary.opacity(0.7))
+                        .saturation(saturation)
+                }
+
                 Text(tab.title)
                     .font(.system(size: TabBarMetrics.titleFontSize))
                     .lineLimit(1)

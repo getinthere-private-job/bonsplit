@@ -187,12 +187,16 @@ public final class BonsplitController {
         isDirty: Bool? = nil,
         showsNotificationBadge: Bool? = nil,
         isLoading: Bool? = nil,
-        isPinned: Bool? = nil
+        isPinned: Bool? = nil,
+        badge: String?? = nil
     ) {
         guard let (pane, tabIndex) = findTabInternal(tabId) else { return }
 
         if let title = title {
             pane.tabs[tabIndex].title = title
+        }
+        if let badge = badge {
+            pane.tabs[tabIndex].badge = badge
         }
         if let icon = icon {
             pane.tabs[tabIndex].icon = icon
