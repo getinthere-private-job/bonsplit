@@ -55,6 +55,12 @@ public final class BonsplitController {
     /// Internal host-driven closes should not use this hook.
     @ObservationIgnored public var onTabCloseRequest: ((_ tabId: TabID, _ paneId: PaneID) -> Void)?
 
+    /// Called when the user taps on a tab's badge text (e.g. "T1").
+    @ObservationIgnored public var onBadgeTap: ((_ tabId: TabID) -> Void)?
+
+    /// Called when the user clicks the decision viewer toggle button in the tab bar.
+    @ObservationIgnored public var onDecisionViewerToggle: (() -> Void)?
+
     // MARK: - Internal State
 
     internal var internalController: SplitViewController
@@ -188,7 +194,8 @@ public final class BonsplitController {
         showsNotificationBadge: Bool? = nil,
         isLoading: Bool? = nil,
         isPinned: Bool? = nil,
-        badge: String?? = nil
+        badge: String?? = nil,
+        badgeColor: Color?? = nil
     ) {
         guard let (pane, tabIndex) = findTabInternal(tabId) else { return }
 
@@ -197,6 +204,9 @@ public final class BonsplitController {
         }
         if let badge = badge {
             pane.tabs[tabIndex].badge = badge
+        }
+        if let badgeColor = badgeColor {
+            pane.tabs[tabIndex].badgeColor = badgeColor
         }
         if let icon = icon {
             pane.tabs[tabIndex].icon = icon

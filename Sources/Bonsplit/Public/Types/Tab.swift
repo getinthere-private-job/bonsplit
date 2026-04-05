@@ -1,7 +1,8 @@
 import Foundation
+import SwiftUI
 
 /// Represents a tab's metadata (read-only snapshot for library consumers)
-public struct Tab: Identifiable, Hashable, Sendable {
+public struct Tab: Identifiable, Hashable {
     public let id: TabID
     public let title: String
     public let hasCustomTitle: Bool
@@ -19,6 +20,8 @@ public struct Tab: Identifiable, Hashable, Sendable {
     public let isPinned: Bool
     /// Optional short badge text displayed before the title (e.g. "T1", "T2").
     public let badge: String?
+    /// Optional badge text color. When nil, uses default secondary color.
+    public let badgeColor: Color?
 
     public init(
         id: TabID = TabID(),
@@ -31,7 +34,8 @@ public struct Tab: Identifiable, Hashable, Sendable {
         showsNotificationBadge: Bool = false,
         isLoading: Bool = false,
         isPinned: Bool = false,
-        badge: String? = nil
+        badge: String? = nil,
+        badgeColor: Color? = nil
     ) {
         self.id = id
         self.title = title
@@ -44,6 +48,7 @@ public struct Tab: Identifiable, Hashable, Sendable {
         self.isLoading = isLoading
         self.isPinned = isPinned
         self.badge = badge
+        self.badgeColor = badgeColor
     }
 
     internal init(from tabItem: TabItem) {
@@ -58,5 +63,6 @@ public struct Tab: Identifiable, Hashable, Sendable {
         self.isLoading = tabItem.isLoading
         self.isPinned = tabItem.isPinned
         self.badge = tabItem.badge
+        self.badgeColor = tabItem.badgeColor
     }
 }

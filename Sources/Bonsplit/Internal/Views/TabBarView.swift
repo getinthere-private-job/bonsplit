@@ -281,6 +281,9 @@ struct TabBarView: View {
             },
             onContextAction: { action in
                 controller.requestTabContextAction(action, for: TabID(id: tab.id), inPane: pane.id)
+            },
+            onBadgeTap: {
+                controller.onBadgeTap?(TabID(id: tab.id))
             }
         )
         .background(

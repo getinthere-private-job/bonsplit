@@ -50,6 +50,7 @@ struct TabItemView: View {
     let onClose: () -> Void
     let onZoomToggle: () -> Void
     let onContextAction: (TabContextAction) -> Void
+    var onBadgeTap: (() -> Void)?
 
     @State private var isHovered = false
     @State private var isCloseHovered = false
@@ -121,8 +122,11 @@ struct TabItemView: View {
                 if let badge = tab.badge {
                     Text(badge)
                         .font(.system(size: TabBarMetrics.titleFontSize - 1, weight: .semibold, design: .monospaced))
-                        .foregroundStyle(Color.secondary.opacity(0.7))
-                        .saturation(saturation)
+                        .foregroundStyle(tab.badgeColor ?? Color.secondary.opacity(0.7))
+                        .saturation(tab.badgeColor != nil ? 1.0 : saturation)
+                        .onTapGesture {
+                            onBadgeTap?()
+                        }
                 }
 
                 Text(tab.title)

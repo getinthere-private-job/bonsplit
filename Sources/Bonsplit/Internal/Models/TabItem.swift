@@ -26,6 +26,8 @@ struct TabItem: Identifiable, Hashable, Codable {
     var isLoading: Bool
     var isPinned: Bool
     var badge: String?
+    /// Transient badge color (not persisted). When nil, uses default secondary color.
+    var badgeColor: Color?
 
     init(
         id: UUID = UUID(),
@@ -38,7 +40,8 @@ struct TabItem: Identifiable, Hashable, Codable {
         showsNotificationBadge: Bool = false,
         isLoading: Bool = false,
         isPinned: Bool = false,
-        badge: String? = nil
+        badge: String? = nil,
+        badgeColor: Color? = nil
     ) {
         self.id = id
         self.title = title
@@ -51,6 +54,7 @@ struct TabItem: Identifiable, Hashable, Codable {
         self.isLoading = isLoading
         self.isPinned = isPinned
         self.badge = badge
+        self.badgeColor = badgeColor
     }
 
     func hash(into hasher: inout Hasher) {
@@ -88,6 +92,7 @@ struct TabItem: Identifiable, Hashable, Codable {
         self.isLoading = try c.decodeIfPresent(Bool.self, forKey: .isLoading) ?? false
         self.isPinned = try c.decodeIfPresent(Bool.self, forKey: .isPinned) ?? false
         self.badge = try c.decodeIfPresent(String.self, forKey: .badge)
+        self.badgeColor = nil
     }
 
     func encode(to encoder: Encoder) throws {
